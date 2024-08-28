@@ -3,7 +3,7 @@ import { Transition } from "@headlessui/react";
 
 const images = [
     "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
-
+    "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
 ];
 
 function Banner() {
