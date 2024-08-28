@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import NavbarUser from './NavbarUser';
+import Banner from './Banner';
 
 const products = [
     {
@@ -146,7 +149,7 @@ const products = [
     // Tambahkan lebih banyak produk jika diperlukan...
   ];
 
-const Product = () => {
+const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [showDiscountedOnly, setShowDiscountedOnly] = useState(false);
@@ -193,82 +196,85 @@ const Product = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col lg:flex-row">
-        <div className="w-full lg:w-1/4 p-2 border-r lg:sticky lg:top-0 bg-white mb-4 lg:mb-0">
-          <h2 className="font-semibold mb-2 text-sm">FILTER</h2>
-          <label className="block mb-1 text-sm">
-            <input
-              type="checkbox"
-              className="mr-1"
-              checked={selectedFilters.includes('Organic')}
-              onChange={() => handleFilterChange('Organic')}
-            /> Organic
-          </label>
-          <label className="block mb-1 text-sm">
-            <input
-              type="checkbox"
-              className="mr-1"
-              checked={selectedFilters.includes('Hydroponics')}
-              onChange={() => handleFilterChange('Hydroponics')}
-            /> Hydroponics
-          </label>
-          <label className="block mb-1 text-sm">
-            <input
-              type="checkbox"
-              className="mr-1"
-              checked={selectedFilters.includes('Natural')}
-              onChange={() => handleFilterChange('Natural')}
-            /> Natural
-          </label>
-          <label className="block mb-1 text-sm">
-            <input
-              type="checkbox"
-              className="mr-1"
-              checked={showDiscountedOnly}
-              onChange={handleDiscountChange}
-            /> Show Discounted Only
-          </label>
-        </div>
-        <div className="w-full lg:w-3/4 p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {currentProducts.map((product) => (
-              <div key={product.id} className="border p-4 rounded-lg">
-                <img src={product.image} alt={product.name} className="mb-2 w-full h-32 object-cover" />
-                <h3 className="font-semibold text-lg">{product.name}</h3>
-                {product.discountedPrice ? (
-                  <div className="mt-2">
-                    <span className="line-through text-red-500 text-sm">Rp. {product.originalPrice}</span>
-                    <span className="text-green-500 font-bold text-sm"> {product.discount} Rp. {product.discountedPrice}</span>
-                  </div>
-                ) : (
-                  <p className="mt-2 text-sm">Rp. {product.price}</p>
-                )}
-                <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded text-sm">
-                  Add to Cart
-                </button>
-              </div>
-            ))}
+    <div>
+        <Banner />
+      <div className="container mx-auto p-4">
+        <div className="flex flex-col lg:flex-row">
+          <div className="w-full lg:w-1/4 p-2 border-r lg:sticky lg:top-0 bg-white mb-4 lg:mb-0">
+            <h2 className="font-semibold mb-2 text-sm">FILTER</h2>
+            <label className="block mb-1 text-sm">
+              <input
+                type="checkbox"
+                className="mr-1"
+                checked={selectedFilters.includes('Organic')}
+                onChange={() => handleFilterChange('Organic')}
+              /> Organic
+            </label>
+            <label className="block mb-1 text-sm">
+              <input
+                type="checkbox"
+                className="mr-1"
+                checked={selectedFilters.includes('Hydroponics')}
+                onChange={() => handleFilterChange('Hydroponics')}
+              /> Hydroponics
+            </label>
+            <label className="block mb-1 text-sm">
+              <input
+                type="checkbox"
+                className="mr-1"
+                checked={selectedFilters.includes('Natural')}
+                onChange={() => handleFilterChange('Natural')}
+              /> Natural
+            </label>
+            <label className="block mb-1 text-sm">
+              <input
+                type="checkbox"
+                className="mr-1"
+                checked={showDiscountedOnly}
+                onChange={handleDiscountChange}
+              /> Show Discounted Only
+            </label>
           </div>
-          {/* Pagination Controls */}
-          <div className="mt-6 flex justify-center">
-            <button
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-              className="bg-gray-300 text-gray-700 px-4 py-2 rounded-l disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <span className="bg-white border-t border-b px-4 py-2">
-              {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className="bg-gray-300 text-gray-700 px-4 py-2 rounded-r disabled:opacity-50"
-            >
-              Next
-            </button>
+          <div className="w-full lg:w-3/4 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {currentProducts.map((product) => (
+                <div key={product.id} className="border p-4 rounded-lg">
+                  <img src={product.image} alt={product.name} className="mb-2 w-full h-32 object-cover" />
+                  <h3 className="font-semibold text-lg">{product.name}</h3>
+                  {product.discountedPrice ? (
+                    <div className="mt-2">
+                      <span className="line-through text-red-500 text-sm">Rp. {product.originalPrice}</span>
+                      <span className="text-green-500 font-bold text-sm"> {product.discount} Rp. {product.discountedPrice}</span>
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-sm">Rp. {product.price}</p>
+                  )}
+                  <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded text-sm">
+                    Add to Cart
+                  </button>
+                </div>
+              ))}
+            </div>
+            {/* Pagination Controls */}
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-l disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="bg-white border-t border-b px-4 py-2">
+                {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-r disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -276,4 +282,14 @@ const Product = () => {
   );
 };
 
-export default Product;
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;

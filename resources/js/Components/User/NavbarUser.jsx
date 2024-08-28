@@ -56,7 +56,7 @@ const NavbarUser = () => {
                         <Link href="/keranjang" className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
                             <img src="https://img.icons8.com/?size=100&id=15893&format=png&color=FFFFFF" alt="Icon Cart" className="h-8 w-8" />
                         </Link>
-                        <Link href="/login" className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
+                        <Link href="/login.jsx" className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
                             <img src="https://img.icons8.com/?size=100&id=YXG86oegZMMh&format=png&color=FFFFFF" alt="Icon Login" className="h-8 w-8" />
                         </Link>
                     </div>
