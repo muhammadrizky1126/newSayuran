@@ -1,115 +1,151 @@
-import Checkbox from '@/Components/Checkbox';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import NavbarUser from '@/Components/User/NavbarUser';
 
-export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+const Login = () => {
+    const { data, setData, post, processing, errors } = useForm({
         email: '',
         password: '',
-        remember: false,
     });
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [resetEmail, setResetEmail] = useState('');
+    const [resetProcessing, setResetProcessing] = useState(false);
 
-    const submit = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
-        post(route('login'), {
-            onFinish: () => reset('password'),
+        post('/login'); // Kirim data login ke rute Laravel
+    };
+
+    const handleForgotPasswordSubmit = (e) => {
+        e.preventDefault();
+        setResetProcessing(true);
+
+        // Send password reset request to your backend
+        // This is a placeholder URL; replace it with your actual route
+        fetch('/password/email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: resetEmail }),
+        })
+        .then(response => response.json())
+        .then(() => {
+            // Handle successful password reset request
+            alert('Email for password reset has been sent.');
+            setResetProcessing(false);
+            setShowForgotPassword(false);
+        })
+        .catch(() => {
+            // Handle error
+            alert('Failed to send password reset email.');
+            setResetProcessing(false);
         });
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <div>
+            <NavbarUser />
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+                    <h2 className="text-2xl font-bold text-center">{showForgotPassword ? 'Forgot Password' : 'Masuk'}</h2>
 
-            <div className="flex flex-col items-center justify-center min-h-screen py-6 px-4 sm:px-6 lg:px-8">
-                <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
-                    <div className="flex justify-center mb-6">
-                        {/* Replace with your app's logo */}
-                        <img src="/path/to/logo.png" alt="App Logo" className="h-12" />
-                    </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Log in to Your Account</h2>
-
-                    <div className="mb-4">
-                        <button className="w-full mb-3 py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-gray-800 hover:bg-gray-100">
-                            Continue With Google
-                        </button>
-                        <button className="w-full mb-3 py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-gray-800 hover:bg-gray-100">
-                            Continue With Facebook
-                        </button>
-                        <button className="w-full mb-3 py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-gray-800 hover:bg-gray-100">
-                            Continue With Apple
-                        </button>
-                    </div>
-
-                    {status && <div className="mb-4 text-sm text-green-600 text-center">{status}</div>}
-
-                    <form onSubmit={submit}>
-                        <div className="mb-4">
-                            <InputLabel htmlFor="email" value="Email" />
-                            <TextInput
-                                id="email"
-                                type="email"
-                                name="email"
-                                value={data.email}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                autoComplete="username"
-                                isFocused={true}
-                                onChange={(e) => setData('email', e.target.value)}
-                            />
-                            <InputError message={errors.email} className="mt-2" />
-                        </div>
-
-                        <div className="mb-4">
-                            <InputLabel htmlFor="password" value="Password" />
-                            <TextInput
-                                id="password"
-                                type="password"
-                                name="password"
-                                value={data.password}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                autoComplete="current-password"
-                                onChange={(e) => setData('password', e.target.value)}
-                            />
-                            <InputError message={errors.password} className="mt-2" />
-                        </div>
-
-                        <div className="flex items-center justify-between mb-4">
-                            <label className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                <Checkbox
-                                    name="remember"
-                                    checked={data.remember}
-                                    onChange={(e) => setData('remember', e.target.checked)}
+                    {showForgotPassword ? (
+                        // Forgot Password Form
+                        <form onSubmit={handleForgotPasswordSubmit}>
+                            <div>
+                                <label htmlFor="resetEmail" className="block text-sm font-medium text-gray-700">
+                                    Email
+                                </label>
+                                <input
+                                    id="resetEmail"
+                                    type="email"
+                                    value={resetEmail}
+                                    onChange={(e) => setResetEmail(e.target.value)}
+                                    className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                                    required
                                 />
-                                <span className="ml-2">Remember me</span>
-                            </label>
-
-                            {canResetPassword && (
-                                <Link
-                                    href={route('password.request')}
-                                    className="text-sm text-indigo-600 hover:text-indigo-500"
+                            </div>
+                            <div className="mt-6">
+                                <button
+                                    type="submit"
+                                    disabled={resetProcessing}
+                                    className="w-full px-4 py-2 font-bold text-white bg-teal-500 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
                                 >
-                                    Forgot your password?
-                                </Link>
-                            )}
-                        </div>
+                                    {resetProcessing ? 'Sending...' : 'Send Password Reset Link'}
+                                </button>
+                            </div>
+                            <div className="mt-4 text-center">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowForgotPassword(false)}
+                                    className="text-sm text-teal-600 hover:underline"
+                                >
+                                    Back to Login
+                                </button>
+                            </div>
+                        </form>
+                    ) : (
+                        // Login Form
+                        <form onSubmit={handleLoginSubmit}>
+                            <div>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                    Email
+                                </label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
+                                    className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                                    required
+                                />
+                                {errors.email && <div className="text-red-600">{errors.email}</div>}
+                            </div>
+                            <div className="mt-4">
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                    Password
+                                </label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    value={data.password}
+                                    onChange={(e) => setData('password', e.target.value)}
+                                    className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                                    required
+                                />
+                                {errors.password && <div className="text-red-600">{errors.password}</div>}
+                            </div>
+                            <div className="flex items-center justify-between mt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowForgotPassword(true)}
+                                    className="text-sm text-teal-600 hover:underline"
+                                >
+                                    Lupa password
+                                </button>
+                            </div>
+                            <div className="mt-6">
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="w-full px-4 py-2 font-bold text-white bg-teal-500 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
+                                >
+                                    {processing ? 'Logging in...' : 'Masuk'}
+                                </button>
+                            </div>
+                        </form>
+                    )}
 
-                        <div className="flex items-center justify-center">
-                            <PrimaryButton className="w-full" disabled={processing}>
-                                Log in
-                            </PrimaryButton>
-                        </div>
-                    </form>
-
-                    <div className="mt-6 text-center">
-                        <Link href={route('register')} className="text-sm text-indigo-600 hover:text-indigo-500">
-                            New customer? Sign up for an account
-                        </Link>
-                    </div>
+                    {!showForgotPassword && (
+                        <p className="mt-6 text-sm text-center text-gray-600">
+                            Pelanggan baru? <a href="/register" className="text-teal-600 hover:underline">Daftar akun</a>
+                        </p>
+                    )}
                 </div>
             </div>
-        </GuestLayout>
+        </div>
     );
-}
+};
+
+export default Login;
