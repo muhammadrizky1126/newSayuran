@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SidebarUser from './SidebarUser'; // Ensure this import path is correct
-
 import Banner from './Banner';
 
 // Data produk
@@ -155,6 +154,9 @@ const products = [
   },
 ];
 
+
+
+
 const ProductList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilters, setSelectedFilters] = useState([]);
@@ -217,7 +219,7 @@ const ProductList = () => {
     return (
       <div>
         <Banner />
-        <SidebarUser isOpen={sidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} /> {/* Ensure correct usage */}
+        <SidebarUser isOpen={sidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} />
         <hr className="my-4 border-gray-300" />
         <div className="container mx-auto p-4">
           <div className="flex flex-col lg:flex-row">
@@ -290,7 +292,7 @@ const ProductList = () => {
                           disabled={product.stock === 0}
                           onClick={() => {
                             addToCart(product);
-                            toggleSidebar(); // Open sidebar when product is added
+                            // No longer opening the sidebar here
                           }}
                         >
                           {product.stock === 0 ? (
@@ -338,116 +340,4 @@ const ProductList = () => {
     );
   };
 
-// Komponen Detail Produk
-// Komponen Detail Produk
-const ProductDetail = () => {
-  const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id));
-
-  if (!product) {
-    return <div>Product not found</div>;
-  }
-
-  // Filter produk rekomendasi berdasarkan kategori produk saat ini
-  const recommendedProducts = products
-    .filter((p) => p.id !== product.id && p.category === product.category)
-    .slice(0, 4); // Ambil 4 produk rekomendasi
-
-  return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col lg:flex-row">
-        <div className="w-full lg:w-1/2">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-80 object-cover rounded-lg"
-          />
-        </div>
-        <div className="w-full lg:w-1/2 lg:pl-8 mt-4 lg:mt-0">
-          <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>
-          <p className="text-lg mb-4 text-gray-700">{product.description}</p>
-          <div className="flex items-center mb-4">
-            {product.discountedPrice ? (
-              <>
-                <span className="line-through text-red-500 text-lg">
-                  Rp. {product.originalPrice}
-                </span>
-                <span className="text-green-600 font-bold text-lg ml-4">
-                  {product.discount} Rp. {product.discountedPrice}
-                </span>
-              </>
-            ) : (
-              <p className="text-lg font-bold text-gray-800">
-                Rp. {product.price}
-              </p>
-            )}
-          </div>
-          <div className="flex items-center mt-4">
-            <button
-              className={`bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300 ${
-                product.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={product.stock === 0}
-            >
-              {product.stock === 0 ? 'Sold Out' : 'Add to Cart'}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Rekomendasi Produk */}
-      {recommendedProducts.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">You May Also Like</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {recommendedProducts.map((recProduct) => (
-              <div
-                key={recProduct.id}
-                className="border border-gray-200 p-4 rounded-lg shadow hover:shadow-md transition duration-300"
-              >
-                <Link to={`/product/${recProduct.id}`}>
-                  <img
-                    src={recProduct.image}
-                    alt={recProduct.name}
-                    className="mb-4 w-full h-40 object-cover rounded"
-                  />
-                  <h3 className="font-semibold text-md text-gray-800">{recProduct.name}</h3>
-                </Link>
-                {recProduct.discountedPrice ? (
-                  <div className="mt-2">
-                    <span className="line-through text-red-500 text-sm">
-                      Rp. {recProduct.originalPrice}
-                    </span>
-                    <span className="text-green-600 font-bold text-sm ml-2">
-                      {recProduct.discount} Rp. {recProduct.discountedPrice}
-                    </span>
-                  </div>
-                ) : (
-                  <p className="mt-2 text-gray-800 font-bold">
-                    Rp. {recProduct.price}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-
-// App utama
-const App = () => {
-  return (
-    <Router>
-
-      <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-      </Routes>
-    </Router>
-  );
-};
-
-export default App;
+export default ProductList;
