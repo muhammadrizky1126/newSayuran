@@ -20,6 +20,8 @@ const Login = () => {
         e.preventDefault();
         setResetProcessing(true);
 
+        // Send password reset request to your backend
+        // This is a placeholder URL; replace it with your actual route
         fetch('/password/email', {
             method: 'POST',
             headers: {
@@ -29,11 +31,13 @@ const Login = () => {
         })
         .then(response => response.json())
         .then(() => {
+            // Handle successful password reset request
             alert('Email for password reset has been sent.');
             setResetProcessing(false);
             setShowForgotPassword(false);
         })
         .catch(() => {
+            // Handle error
             alert('Failed to send password reset email.');
             setResetProcessing(false);
         });
@@ -41,12 +45,14 @@ const Login = () => {
 
     return (
         <div>
-            <NavbarUser />
+        <NavbarUser />
+        <div>
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
                 <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
                     <h2 className="text-2xl font-bold text-center">{showForgotPassword ? 'Forgot Password' : 'Masuk'}</h2>
 
                     {showForgotPassword ? (
+                        // Forgot Password Form
                         <form onSubmit={handleForgotPasswordSubmit}>
                             <div>
                                 <label htmlFor="resetEmail" className="block text-sm font-medium text-gray-700">
@@ -81,6 +87,7 @@ const Login = () => {
                             </div>
                         </form>
                     ) : (
+                        // Login Form
                         <form onSubmit={handleLoginSubmit}>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -138,6 +145,7 @@ const Login = () => {
                     )}
                 </div>
             </div>
+        </div>
         </div>
     );
 };

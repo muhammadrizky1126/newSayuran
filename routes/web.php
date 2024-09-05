@@ -1,17 +1,14 @@
 <?php
 
-
 use App\Http\Controllers\ProfileController;
-
-use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Foundation\Application;
-use Inertia\Inertia;
-use App\Http\Controllers\WhitelistController;
-
-
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-// Home route
+use App\Http\Controllers\FavoriteController;
+use Inertia\Inertia;
+
+// Route untuk halaman beranda
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -21,34 +18,27 @@ Route::get('/', function () {
     ]);
 });
 
-// Dashboard route
+// Route untuk dashboard yang memerlukan autentikasi dan verifikasi email
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Authenticated routes
+// Route yang memerlukan autentikasi
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Authentication routes
-// Rute untuk menampilkan form login
+// Route untuk login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-
-// Rute untuk menangani proses login
 Route::post('/login', [LoginController::class, 'login']);
-// Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-// Route::post('/register', [RegisterController::class, 'register']);
 
-// Include auth routes
-// require _DIR_ . '/auth.php';
+// Route untuk registrasi
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
+Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
 
-Route::get('/whitelist', [WhitelistController::class, 'index'])->name('whitelist.index');
-Route::post('/whitelist', [WhitelistController::class, 'store'])->name('whitelist.store');
-
-// Route::get('/whitelist', [WhitelistController::class, 'index'])->name('whitelist');
+// Mengimpor route autentikasi lainnya
+require __DIR__.'/auth.php';
