@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
-import axios from 'axios'; // Ensure axios is installed
-import SidebarUser from './SidebarUser'; // Import SidebarUser component
+import axios from 'axios';
+import SidebarUser from './SidebarUser';
 
 const NavbarUser = ({ onSearch }) => {
-    const [isFavorited, setIsFavorited] = useState(false); // Initial state for favorite status
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility
-    const [cartItems, setCartItems] = useState([]); // State to manage cart items
+    const [isFavorited, setIsFavorited] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
 
-    // Handle search input change
     const handleSearchChange = (e) => {
-        onSearch(e.target.value);
+        onSearch(e.target.value); // Pass search value to parent component
     };
 
-    // Toggle favorite status
     const handleFavoriteClick = async () => {
         try {
-            const response = await axios.post('/favorites', { product_id: 1 }); // Replace `1` with the actual product ID
+            const response = await axios.post('/favorites', { product_id: 1 });
             if (response.data.success) {
                 setIsFavorited(!isFavorited);
             }
@@ -25,10 +23,8 @@ const NavbarUser = ({ onSearch }) => {
         }
     };
 
-    // Handle add to cart
     const handleAddToCart = async (product) => {
         try {
-            // Replace `/cart` with the correct endpoint
             const response = await axios.post('/cart/add', { product_id: product.id, quantity: 1 });
             if (response.data.success) {
                 setCartItems(prevItems => [...prevItems, product]);
@@ -38,7 +34,6 @@ const NavbarUser = ({ onSearch }) => {
         }
     };
 
-    // Toggle sidebar visibility
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -49,7 +44,9 @@ const NavbarUser = ({ onSearch }) => {
                 <nav className="bg-white shadow w-full fixed top-0 left-0 z-50">
                     <div className="w-full bg-teal-500 flex flex-col md:flex-row justify-between items-center p-5">
                         <div className="flex items-center space-x-4">
-                            <span className="text-5xl font-bold text-white text-center md:text-left">sesa.id</span>
+                        <Link href="/">
+  <span className="text-5xl font-bold text-white text-center md:text-left">sesa.id</span>
+</Link>
                             <div className="border-r border-white h-8"></div>
                             <div className="flex flex-col items-center space-y-1">
                                 <div className="flex items-center space-x-2">
@@ -115,10 +112,8 @@ const NavbarUser = ({ onSearch }) => {
                     </div>
                 </nav>
 
-                {/* Spacer div to prevent content overlap */}
                 <div className="h-28"></div>
 
-                {/* SidebarUser component */}
                 <SidebarUser isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} />
             </div>
         </>

@@ -2,12 +2,15 @@
 
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\WhitelistController;
+
+
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Route;
 // Home route
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -33,9 +36,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // Authentication routes
+// Rute untuk menampilkan form login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
 
+// Rute untuk menangani proses login
+Route::post('/login', [LoginController::class, 'login']);
 // Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
 // Route::post('/register', [RegisterController::class, 'register']);
 

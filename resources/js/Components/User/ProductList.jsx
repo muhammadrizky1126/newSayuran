@@ -4,158 +4,172 @@ import SidebarUser from './SidebarUser'; // Ensure this import path is correct
 import Banner from './Banner';
 
 // Data produk
-// Data produk
 const products = [
-  {
-    id: 1,
-    name: 'Organic Broccoli Sesa 300 Gr',
-    category: 'Organic',
-    originalPrice: 19900,
-    discountedPrice: 17900,
-    discount: '-10%',
-    image: 'https://images.squarespace-cdn.com/content/v1/5b5aa0922487fd1ce32c117a/1547765015801-FSR1DVSKCZU3PAYWIRQG/broccoli.jpg',
-    stock: Math.floor(Math.random() * 20),
-    description: 'Fresh and organic broccoli, perfect for a healthy diet. Rich in vitamins and minerals.',
-  },
-  {
-    id: 2,
-    name: 'Organic Green Spinach Sesa 200 Gr',
-    category: 'Organic',
-    price: 14900,
-    image: 'https://www.greendna.in/cdn/shop/products/English_Spinach__67562_425x.jpg?v=1607938113',
-    stock: Math.floor(Math.random() * 3),
-    description: 'Nutritious green spinach, great for salads and cooking. Packed with antioxidants and vitamins.',
-  },
-  {
-    id: 3,
-    name: 'Edamame 1 Kg',
-    category: 'Natural',
-    price: 24900,
-    image: 'https://s3-publishing-cmn-svc-prd.s3.ap-southeast-1.amazonaws.com/article/0LaNSoINv6RtFWYxco8i4/original/057936200_1604487548-Manfaat-Kacang-Edamame-untuk-Kecantikan-shutterstock_718434649.jpg',
-  },
-  {
-    id: 4,
-    name: 'Natural Asparagus Sesa 250 Gr',
-    category: 'Natural',
-    price: 42900,
-    image: 'https://5.imimg.com/data5/SELLER/Default/2021/12/NC/IE/AC/140389828/jivit-asparagus-large-leaf-500x500.jpeg',
-  },
-  {
-    id: 5,
-    name: 'Organic Carrots 500 Gr',
-    category: 'Organic',
-    price: 15900,
-    image: 'https://leafy.id/wp-content/uploads/2019/12/p9.jpg',
-  },
-  {
-    id: 6,
-    name: 'Fresh Tomatoes 300 Gr',
-    category: 'Hydroponics',
-    price: 17900,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/1200px-Tomato_je.jpg',
-  },
-  {
-    id: 7,
-    name: 'Organic Bell Peppers 200 Gr',
-    category: 'Organic',
-    price: 19900,
-    image: 'https://cdn.britannica.com/12/147312-050-BEC6A59E/Bell-peppers.jpg',
-  },
-  {
-    id: 8,
-    name: 'Natural Cucumbers 400 Gr',
-    category: 'Natural',
-    price: 13900,
-    image: 'https://specialtyproduce.com/sppics/385.png',
-  },
-  {
-    id: 9,
-    name: 'Fresh Kangkung 300 Gr',
-    category: 'Natural',
-    price: 24900,
-    image: 'https://asset.kompas.com/crops/hiHp3YQ3thc3pKgLg-rUdaI-OR8=/0x0:1000x667/750x500/data/photo/2023/06/02/6479fd6c38b10.jpg',
-  },
-  {
-    id: 10,
-    name: 'Organic Lettuce 200 Gr',
-    category: 'Organic',
-    price: 12900,
-    image: 'https://media.newyorker.com/photos/5b6b08d3a676470b4ea9b91f/4:3/w_1920,h_1440,c_limit/Rosner-Lettuce.jpg',
-  },
-  {
-    id: 11,
-    name: 'Hydroponic Kale 250 Gr',
-    category: 'Hydroponics',
-    price: 21900,
-    image: 'https://cdn1-production-images-kly.akamaized.net/SCV68Bza6ZegWzOmTv2-WgSUbSM=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2814106/original/062756400_1558620545-iStock-638451058.jpg',
-  },
-  {
-    id: 12,
-    name: 'Natural Carrots 500 Gr',
-    category: 'Natural',
-    price: 15900,
-    image: 'https://5.imimg.com/data5/SELLER/Default/2022/6/KH/AX/XT/83716376/1-500x500.png',
-  },
-  {
-    id: 13,
-    name: 'Organic Zucchini 300 Gr',
-    category: 'Organic',
-    price: 22900,
-    image: 'https://images.tokopedia.net/img/cache/700/product-1/2018/8/30/37313461/37313461_65ce0650-5d77-45dd-88cf-fff01b9c1189_843_583.jpg',
-  },
-  {
-    id: 14,
-    name: 'Fresh Red Onions 500 Gr',
-    category: 'Natural',
-    price: 19900,
-    image: 'https://produits.bienmanger.com/36700-0w0h0_Organic_Red_Onion_From_Italy.jpg',
-  },
-  {
-    id: 15,
-    name: 'Hydroponic Cherry Tomatoes 250 Gr',
-    category: 'Hydroponics',
-    price: 25900,
-    image: 'https://cdn.shopify.com/s/files/1/0597/9376/8608/files/hydroponic_cherry_tomatoes_system_1024x1024.jpg?v=1685696663',
-  },
-  {
-    id: 16,
-    name: 'Natural Potatoes 1 Kg',
-    category: 'Natural',
-    price: 29900,
-    image: 'https://iloveorganicgirl.com/wp-content/uploads/2015/11/organicgirl-baby-spinach-5oz.png',
-  },
-  {
-    id: 17,
-    name: 'Organic Spinach 200 Gr',
-    category: 'Organic',
-    price: 14900,
-    image: 'https://www.gardenoflife.com/media/2016/06/organic-spinach-499x392.jpg',
-  },
-  {
-    id: 18,
-    name: 'Fresh Green Beans 300 Gr',
-    category: 'Natural',
-    price: 19900,
-    image: 'https://cdn.loveandlemons.com/wp-content/uploads/2014/11/green-beans-3.jpg',
-  },
-  {
-    id: 19,
-    name: 'Hydroponic Butterhead Lettuce 150 Gr',
-    category: 'Hydroponics',
-    price: 15900,
-    image: 'https://yodeli.in/cdn/shop/products/truganic-organic-green-leafy-vegetables-hydroponic-butterhead-lettuce.jpg?v=1614567537',
-  },
-  {
-    id: 20,
-    name: 'Organic Bok Choy 200 Gr',
-    category: 'Organic',
-    price: 16900,
-    image: 'https://dinosaofood.co/wp-content/uploads/2022/02/BokChoy-Thumbnail-OG.png',
-  },
-];
-
-
-
+    {
+      id: 1,
+      name: 'Organic Broccoli Sesa 300 Gr',
+      category: 'Organic',
+      originalPrice: 19900,
+      discountedPrice: 17900,
+      discount: '-10%',
+      image: 'https://images.squarespace-cdn.com/content/v1/5b5aa0922487fd1ce32c117a/1547765015801-FSR1DVSKCZU3PAYWIRQG/broccoli.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+      description: 'Fresh and organic broccoli, perfect for a healthy diet. Rich in vitamins and minerals.',
+    },
+    {
+      id: 2,
+      name: 'Organic Green Spinach Sesa 200 Gr',
+      category: 'Organic',
+      price: 14900,
+      image: 'https://www.greendna.in/cdn/shop/products/English_Spinach__67562_425x.jpg?v=1607938113',
+      stock: 1, // random stock
+      description: 'Nutritious green spinach, great for salads and cooking. Packed with antioxidants and vitamins.',
+    },
+    {
+      id: 3,
+      name: 'Edamame 1 Kg',
+      category: 'Natural',
+      price: 24900,
+      image: 'https://s3-publishing-cmn-svc-prd.s3.ap-southeast-1.amazonaws.com/article/0LaNSoINv6RtFWYxco8i4/original/057936200_1604487548-Manfaat-Kacang-Edamame-untuk-Kecantikan-shutterstock_718434649.jpg',
+      stock: 0, // stock 0
+    },
+    {
+      id: 4,
+      name: 'Natural Asparagus Sesa 250 Gr',
+      category: 'Natural',
+      price: 42900,
+      image: 'https://5.imimg.com/data5/SELLER/Default/2021/12/NC/IE/AC/140389828/jivit-asparagus-large-leaf-500x500.jpeg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 5,
+      name: 'Organic Carrots 500 Gr',
+      category: 'Organic',
+      price: 15900,
+      image: 'https://leafy.id/wp-content/uploads/2019/12/p9.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 6,
+      name: 'Fresh Tomatoes 300 Gr',
+      category: 'Hydroponics',
+      price: 17900,
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/1200px-Tomato_je.jpg',
+      stock: 0, // stock 0
+    },
+    {
+      id: 7,
+      name: 'Organic Bell Peppers 200 Gr',
+      category: 'Organic',
+      price: 19900,
+      image: 'https://cdn.britannica.com/12/147312-050-BEC6A59E/Bell-peppers.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 8,
+      name: 'Natural Cucumbers 400 Gr',
+      category: 'Natural',
+      price: 13900,
+      image: 'https://specialtyproduce.com/sppics/385.png',
+      stock: 0, // stock 0
+    },
+    {
+      id: 9,
+      name: 'Fresh Kangkung 300 Gr',
+      category: 'Natural',
+      price: 24900,
+      image: 'https://asset.kompas.com/crops/hiHp3YQ3thc3pKgLg-rUdaI-OR8=/0x0:1000x667/750x500/data/photo/2023/06/02/6479fd6c38b10.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 10,
+      name: 'Organic Lettuce 200 Gr',
+      category: 'Organic',
+      price: 12900,
+      image: 'https://media.newyorker.com/photos/5b6b08d3a676470b4ea9b91f/4:3/w_1920,h_1440,c_limit/Rosner-Lettuce.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 11,
+      name: 'Hydroponic Kale 250 Gr',
+      category: 'Hydroponics',
+      price: 21900,
+      image: 'https://cdn1-production-images-kly.akamaized.net/SCV68Bza6ZegWzOmTv2-WgSUbSM=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2814106/original/062756400_1558620545-iStock-638451058.jpg',
+      stock: 0, // stock 0
+    },
+    {
+      id: 12,
+      name: 'Natural Carrots 500 Gr',
+      category: 'Natural',
+      price: 15900,
+      image: 'https://5.imimg.com/data5/SELLER/Default/2022/6/KH/AX/XT/83716376/1-500x500.png',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 13,
+      name: 'Organic Zucchini 300 Gr',
+      category: 'Organic',
+      price: 22900,
+      image: 'https://images.tokopedia.net/img/cache/700/product-1/2018/8/30/37313461/37313461_65ce0650-5d77-45dd-88cf-fff01b9c1189_843_583.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 14,
+      name: 'Fresh Red Onions 500 Gr',
+      category: 'Natural',
+      price: 19900,
+      image: 'https://produits.bienmanger.com/36700-0w0h0_Organic_Red_Onion_From_Italy.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 15,
+      name: 'Hydroponic Cherry Tomatoes 250 Gr',
+      category: 'Hydroponics',
+      price: 25900,
+      image: 'https://cdn.shopify.com/s/files/1/0597/9376/8608/files/hydroponic_cherry_tomatoes_system_1024x1024.jpg?v=1685696663',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 16,
+      name: 'Natural Potatoes 1 Kg',
+      category: 'Natural',
+      price: 29900,
+      image: 'https://iloveorganicgirl.com/wp-content/uploads/2015/11/organicgirl-baby-spinach-5oz.png',
+      stock: 0, // stock 0
+    },
+    {
+      id: 17,
+      name: 'Organic Spinach 200 Gr',
+      category: 'Organic',
+      price: 14900,
+      image: 'https://www.gardenoflife.com/media/2016/06/organic-spinach-499x392.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 18,
+      name: 'Fresh Green Beans 300 Gr',
+      category: 'Natural',
+      price: 19900,
+      image: 'https://cdn.loveandlemons.com/wp-content/uploads/2014/11/green-beans-3.jpg',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+    {
+      id: 19,
+      name: 'Hydroponic Butterhead Lettuce 150 Gr',
+      category: 'Hydroponics',
+      price: 15900,
+      image: 'https://yodeli.in/cdn/shop/products/truganic-organic-green-leafy-vegetables-hydroponic-butterhead-lettuce.jpg?v=1614567537',
+      stock: 0, // stock 0
+    },
+    {
+      id: 20,
+      name: 'Organic Bok Choy 200 Gr',
+      category: 'Organic',
+      price: 16900,
+      image: 'https://dinosaofood.co/wp-content/uploads/2022/02/BokChoy-Thumbnail-OG.png',
+      stock: Math.floor(Math.random() * 20), // random stock
+    },
+  ];
 
 const ProductList = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -214,6 +228,11 @@ const ProductList = () => {
 
     const toggleSidebar = () => {
       setSidebarOpen(!sidebarOpen);
+    };
+
+    const addToWhitelist = (product) => {
+      // Implement your whitelist logic here
+      console.log('Added to whitelist:', product);
     };
 
     return (
@@ -280,11 +299,9 @@ const ProductList = () => {
                           </span>
                         </div>
                       ) : (
-                        <p className="mt-2 text-gray-800 font-bold">
-                          Rp. {product.price}
-                        </p>
+                        <p className="mt-2 text-gray-800 font-bold">Rp. {product.price}</p>
                       )}
-                      <div className="flex items-center justify-start mt-4">
+                      <div className="flex items-center justify-start mt-4 space-x-4">
                         <button
                           className={`bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300 ${
                             product.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''
@@ -292,16 +309,27 @@ const ProductList = () => {
                           disabled={product.stock === 0}
                           onClick={() => {
                             addToCart(product);
-                            // No longer opening the sidebar here
                           }}
                         >
                           {product.stock === 0 ? (
                             'Sold Out'
                           ) : (
-                            <span className="flex items-center">
-                              Add to Cart
-                            </span>
+                            <img
+                              src="https://img.icons8.com/?size=100&id=15893&format=png&color=FFFFFF"
+                              alt="Add to Cart"
+                              className="h-6 w-6 mx-auto"
+                            />
                           )}
+                        </button>
+                        <button
+                          className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition duration-300"
+                          onClick={() => addToWhitelist(product)}
+                        >
+                          <img
+                            src="https://img.icons8.com/ios/50/000000/like--v1.png" // Replace with your whitelist icon URL
+                            alt="Whitelist"
+                            className="h-6 w-6"
+                          />
                         </button>
                       </div>
                     </div>
@@ -340,4 +368,4 @@ const ProductList = () => {
     );
   };
 
-export default ProductList;
+  export default ProductList;
