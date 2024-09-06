@@ -30,4 +30,11 @@ class Product extends Model
         'weight_product' => 'integer',
         'stock' => 'integer',
     ];
+
+    public function users()
+{
+    return $this->belongsToMany(User::class, 'favorites');
 }
+}
+
+

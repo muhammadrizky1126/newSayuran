@@ -3,13 +3,13 @@ import { Transition } from "@headlessui/react";
 
 const images = [
     "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
-    "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
+    "https://nibble-images.b-cdn.net/nibble/original_images/jakarta_buah_duta_buah_6e6a92c106.jpg"
 ];
 
 function Banner() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Mengatur interval untuk mengganti gambar setiap 1 detik
+    // Mengatur interval untuk mengganti gambar setiap 4 detik
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -32,11 +32,20 @@ function Banner() {
                     leaveFrom="translate-x-0 opacity-100"
                     leaveTo="-translate-x-full opacity-0"
                 >
-                    <img
-                        src={src}
-                        alt={`Banner ${index}`}
-                        className="absolute inset-0 object-cover w-full h-full rounded-lg"
-                    />
+                    <div className="absolute inset-0">
+                        <img
+                            src={src}
+                            alt={`Banner ${index}`}
+                            className="object-cover w-full h-full rounded-lg"
+                        />
+                        {index === 0 && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <h1 className="text-4xl md:text-6xl text-white font-bold shadow-lg">
+                                    Selamat Datang Di Toko Sayur Segarku
+                                </h1>
+                            </div>
+                        )}
+                    </div>
                 </Transition>
             ))}
         </div>
