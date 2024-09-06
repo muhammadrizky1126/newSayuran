@@ -2,22 +2,20 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
-<<<<<<< HEAD
 use App\Http\Controllers\Auth\RegisterController;
-=======
+
 use App\Http\Controllers\Auth\RegisteredUserController;
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FavoriteController;
 use Inertia\Inertia;
 use App\Http\Controllers\WhitelistController;
 
-<<<<<<< HEAD
+
 // Home route
-=======
+
 // Route untuk halaman beranda
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -27,20 +25,19 @@ Route::get('/', function () {
     ]);
 });
 
-<<<<<<< HEAD
-// Dashboard route
-=======
+
+// Dashboard rout
 // Route untuk dashboard yang memerlukan autentikasi dan verifikasi email
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-<<<<<<< HEAD
+
 // Authenticated routes
-=======
+
 // Route yang memerlukan autentikasi
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/whitelist/toggle', [WhitelistController::class, 'toggleFavorite'])->name('whitelist.toggle');
 });
 
-<<<<<<< HEAD
+
 // Authentication routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -66,7 +63,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/whitelist', [WhitelistController::class, 'index'])->name('whitelist.index');
     Route::post('/toggle-favorite', [WhitelistController::class, 'toggleFavorite'])->name('whitelist.toggleFavorite');
 });
-=======
 // Route untuk login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -79,4 +75,3 @@ Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites
 
 // Mengimpor route autentikasi lainnya
 require __DIR__.'/auth.php';
->>>>>>> 136ad329314431edea17d2015b442b578eee6368

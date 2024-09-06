@@ -3,27 +3,20 @@ import { Transition } from "@headlessui/react";
 
 const images = [
     "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
-<<<<<<< HEAD
-    "https://nibble-images.b-cdn.net/nibble/original_images/jakarta_buah_duta_buah_6e6a92c106.jpg"
-=======
-    "https://static.vecteezy.com/system/resources/previews/047/390/694/non_2x/farmers-market-flyer-design-with-cartoon-vegetables-manga-style-poster-flat-design-advertising-poster-card-banner-leaflet-promo-web-page-farmers-market-concept-vector.jpg",
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
+    "https://nibble-images.b-cdn.net/nibble/original_images/jakarta_buah_duta_buah_6e6a92c106.jpg", 
+    // Tambahkan gambar lain jika diperlukan
 ];
 
 function Banner() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-<<<<<<< HEAD
     // Mengatur interval untuk mengganti gambar setiap 4 detik
-=======
-    // Set interval to change image every 4 seconds
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
         }, 4000);
 
-        // Clean up interval on component unmount
+        // Membersihkan interval saat komponen di-unmount
         return () => clearInterval(interval);
     }, []);
 
@@ -49,11 +42,7 @@ function Banner() {
                         {index === 0 && (
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <h1 className="text-4xl md:text-6xl text-white font-bold shadow-lg">
-<<<<<<< HEAD
                                     Selamat Datang Di Toko Sayur Segarku
-=======
-                                    Welcome to Our Shop
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
                                 </h1>
                             </div>
                         )}

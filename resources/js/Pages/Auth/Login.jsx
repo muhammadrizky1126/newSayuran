@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import NavbarUser from '@/Components/User/NavbarUser';
-<<<<<<< HEAD
-=======
-import Footer from '@/Components/User/Footer';
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
+import Footer from '@/Components/User/Footer'; // Menambahkan Footer
 
 const Login = () => {
     const { data, setData, post, processing, errors } = useForm({
@@ -49,23 +46,13 @@ const Login = () => {
 
     return (
         <div>
-<<<<<<< HEAD
             <NavbarUser />
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
                 <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-                    <h2 className="text-2xl font-bold text-center">{showForgotPassword ? 'Forgot Password' : 'Masuk'}</h2>
+                    <h2 className="text-2xl font-bold text-center">
+                        {showForgotPassword ? 'Forgot Password' : 'Masuk'}
+                    </h2>
 
-=======
-
-
-        <div>
-        <NavbarUser />
-        <div>
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-                    <h2 className="text-2xl font-bold text-center">{showForgotPassword ? 'Forgot Password' : 'Masuk'}</h2>
-
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
                     {showForgotPassword ? (
                         // Forgot Password Form
                         <form onSubmit={handleForgotPasswordSubmit}>
@@ -160,13 +147,8 @@ const Login = () => {
                     )}
                 </div>
             </div>
+            <Footer /> {/* Menambahkan Footer */}
         </div>
-<<<<<<< HEAD
-=======
-        <Footer />
-        </div>
-        </div>
->>>>>>> 136ad329314431edea17d2015b442b578eee6368
     );
 };
 
