@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import NavbarUser from '@/Components/User/NavbarUser';
+import Footer from '@/Components/User/Footer';
 
 const Login = () => {
     const { data, setData, post, processing, errors } = useForm({
@@ -44,6 +45,9 @@ const Login = () => {
     };
 
     return (
+        <div>
+
+
         <div>
         <NavbarUser />
         <div>
@@ -145,6 +149,8 @@ const Login = () => {
                     )}
                 </div>
             </div>
+        </div>
+        <Footer />
         </div>
         </div>
     );
