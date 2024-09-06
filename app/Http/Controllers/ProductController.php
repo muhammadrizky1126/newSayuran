@@ -34,10 +34,6 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -62,4 +58,11 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function show(Product $product)
+    {
+        dd($product);
+        return view('products.show', compact('product'));
+    }
+
 }
