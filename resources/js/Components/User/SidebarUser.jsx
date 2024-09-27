@@ -1,44 +1,34 @@
-import React from 'react';
+import React from 'react'; // Pastikan path ini benar
+import Banner from './Banner'; // Pastikan path ini benar
 
-const SidebarUser = ({ isOpen, toggleSidebar, cartItems = [] }) => {
-  const sidebarStyle = {
-    position: 'fixed',
-    right: 0,
-    top: 0,
-    height: '100%',
-    width: '300px',
-    backgroundColor: 'white',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-    transition: 'transform 0.3s ease',
-    zIndex: 1000,
-    padding: '16px',
-    overflowY: 'auto',  // Add this to enable vertical scrolling
-  };
-
+const SidebarUser = ({ isOpen, toggleSidebar, cartItems }) => {
   return (
-    <div style={sidebarStyle}>
-      <button onClick={toggleSidebar} className="text-red-500 font-bold mb-4">
-        Close
-      </button>
-      <h2 className="text-lg font-semibold mb-4">Cart</h2>
-      <ul>
+    <div
+      className={`fixed right-0 top-0 h-full w-64 bg-white shadow-lg transform ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      } transition-transform duration-300 ease-in-out`}
+    >
+      <div className="p-4">
+        <button
+          className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+          onClick={toggleSidebar}
+        >
+          Close
+        </button>
+        <h2 className="text-xl font-semibold mt-4">Cart</h2>
         {cartItems.length > 0 ? (
-          cartItems.map((item, index) => (
-            <li key={index} className="border-b border-gray-200 py-2">
-              <div className="flex items-center">
-                <img src={item.image} alt={item.name} className="w-16 h-16 object-cover mr-4" />
-                <div>
-                  <h3 className="font-medium text-gray-800">{item.name}</h3>
-                  <p className="text-sm text-gray-600">Rp. {item.discountedPrice || item.price}</p>
-                </div>
-              </div>
-            </li>
-          ))
+          <ul className="mt-2">
+            {cartItems.map((item, index) => (
+              <li key={index} className="flex justify-between items-center mt-2">
+                <span>{item.name}</span>
+                <span>Rp. {item.discountedPrice || item.price}</span>
+              </li>
+            ))}
+          </ul>
         ) : (
-          <p className="text-gray-500">Your cart is empty.</p>
+          <p className="mt-2 text-gray-500">No items in the cart.</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };

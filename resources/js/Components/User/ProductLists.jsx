@@ -313,7 +313,7 @@ const ProductList = () => {
                         >
                           {product.stock === 0 ? (
                             'Sold Out'
-                          ) : (
+                          ) : (     
                             <img
                               src="https://img.icons8.com/?size=100&id=15893&format=png&color=FFFFFF"
                               alt="Add to Cart"

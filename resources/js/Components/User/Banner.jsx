@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 
+// Daftar gambar untuk banner
 const images = [
     "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
-    "https://nibble-images.b-cdn.net/nibble/original_images/jakarta_buah_duta_buah_6e6a92c106.jpg", 
-    // Tambahkan gambar lain jika diperlukan
+    "https://static.vecteezy.com/system/resources/previews/047/390/694/non_2x/farmers-market-flyer-design-with-cartoon-vegetables-manga-style-poster-flat-design-advertising-poster-card-banner-leaflet-promo-web-page-farmers-market-concept-vector.jpg",
 ];
 
+// Komponen Banner
 function Banner() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Mengatur interval untuk mengganti gambar setiap 4 detik
+    // Set interval untuk mengganti gambar setiap 4 detik
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
         }, 4000);
 
-        // Membersihkan interval saat komponen di-unmount
+        // Bersihkan interval ketika komponen di-unmount
         return () => clearInterval(interval);
     }, []);
 
@@ -42,7 +43,7 @@ function Banner() {
                         {index === 0 && (
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <h1 className="text-4xl md:text-6xl text-white font-bold shadow-lg">
-                                    Selamat Datang Di Toko Sayur Segarku
+                                    Welcome to Our Shop
                                 </h1>
                             </div>
                         )}

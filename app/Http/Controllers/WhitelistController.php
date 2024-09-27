@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Whitelist;
 
-class WhitelistsController extends Controller
+class WhitelistController extends Controller
 {
-    // Menampilkan daftar whitelist
+    // Menampilkan daftar whitelist dengan Inertia
     public function index()
     {
-        $whitelists = Whitelist::all();
-        return response()->json($whitelists);
+        $whitelists = Whitelist::all(); // Ambil semua data dari model Whitelist
+        return Inertia::render('WhitelistPage', [
+            'whitelistData' => $whitelists, // Kirimkan data whitelist ke frontend melalui Inertia
+        ]);
     }
 
     // Menambahkan entry baru ke whitelist
@@ -23,7 +26,7 @@ class WhitelistsController extends Controller
 
         $whitelist = Whitelist::create($validatedData);
 
-        return response()->json($whitelist, 201);
+        return back(); // Mengirim respons kembali ke frontend
     }
 
     // Menghapus entry dari whitelist
@@ -37,6 +40,6 @@ class WhitelistsController extends Controller
 
         $whitelist->delete();
 
-        return response()->json(null, 204);
+        return back(); // Mengirim respons kembali ke frontend
     }
 }

@@ -60,7 +60,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/whitelist', [WhitelistController::class, 'index'])->name('whitelist.index');
+    Route::get('/whitelist', [WhitelistController::class, 'index']);
     Route::post('/toggle-favorite', [WhitelistController::class, 'toggleFavorite'])->name('whitelist.toggleFavorite');
 });
 // Route untuk login
@@ -71,7 +71,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
 
+Route::get('/whitelist', [WhitelistController::class, 'index'])->name('whitelist.index');
 // Mengimpor route autentikasi lainnya
 require __DIR__.'/auth.php';
