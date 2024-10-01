@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import NavbarUser from './NavbarUser';
 
 // Data produk
 const products = [
@@ -172,10 +173,11 @@ const products = [
     }
 
     return (
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto ">
+        <NavbarUser/>
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:w-1/2 p-4">
-            <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded" />
+            <img src={product.image} alt={product.name} className="w-full h-604 object-cover rounded" />
           </div>
           <div className="w-full lg:w-1/2 p-4">
             <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>

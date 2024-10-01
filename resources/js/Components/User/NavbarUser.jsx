@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
-import axios from 'axios';
 import SidebarUser from './SidebarUser';
-import ProductList from './ProductLists'; // Import ProductList component
 
 const NavbarUser = () => {
-    const [isFavorited, setIsFavorited] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState(""); // Add search query state
     const [cartItems, setCartItems] = useState([]);
@@ -14,28 +11,10 @@ const NavbarUser = () => {
         setSearchQuery(e.target.value);
     };
 
-    const handleFavoriteClick = async () => {
-        console.log('Favorite button clicked'); // Add log for debugging
-        try {
-            const response = await axios.post('/favorites', { product_id: 1 });
-            if (response.data.success) {
-                setIsFavorited(!isFavorited);
-            }
-        } catch (error) {
-            console.error('Error toggling favorite:', error);
-        }
-    };
-
     const handleAddToCart = async (product) => {
         console.log('Add to cart button clicked'); // Add log for debugging
-        try {
-            const response = await axios.post('/cart/add', { product_id: product.id, quantity: 1 });
-            if (response.data.success) {
-                setCartItems(prevItems => [...prevItems, product]);
-            }
-        } catch (error) {
-            console.error('Error adding to cart:', error);
-        }
+        // Logika menambah ke cart
+        setCartItems(prevItems => [...prevItems, product]);
     };
 
     const toggleSidebar = () => {
@@ -83,16 +62,16 @@ const NavbarUser = () => {
                         </div>
 
                         <div className="flex items-center space-x-4 mt-4 md:mt-0">
-                            <button
-                                onClick={handleFavoriteClick}
-                                className={`text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium ${isFavorited ? 'bg-yellow-500' : ''}`}
+                            <Link
+                                href="/wishlist"
+                                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
                             >
                                 <img
                                     src="https://img.icons8.com/?size=100&id=86721&format=png&color=FFFFFF"
                                     alt="Icon Favorit"
                                     className="h-8 w-8"
                                 />
-                            </button>
+                            </Link>
                             <button
                                 onClick={toggleSidebar}
                                 className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
@@ -116,8 +95,6 @@ const NavbarUser = () => {
                 </nav>
 
                 <div className="h-28"></div>
-
-                <ProductList searchQuery={searchQuery} /> {/* Pass searchQuery to ProductList */}
 
                 <SidebarUser isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} />
             </div>
