@@ -4,7 +4,7 @@ import { Transition } from "@headlessui/react";
 // Daftar gambar untuk banner
 const images = [
     "https://cdn.britannica.com/17/196817-159-9E487F15/vegetables.jpg",
-    "https://static.vecteezy.com/system/resources/previews/047/390/694/non_2x/farmers-market-flyer-design-with-cartoon-vegetables-manga-style-poster-flat-design-advertising-poster-card-banner-leaflet-promo-web-page-farmers-market-concept-vector.jpg",
+    "https://media.istockphoto.com/id/2119413770/id/foto/seorang-pembelanja-kontemplatif-membaca-dengan-teliti-berbagai-sayuran-di-toko-kelontong.jpg?s=2048x2048&w=is&k=20&c=ihdNaasEIG0e5yAFKKgOFs8ef-C2mL-rzjM0Vn4gkks=",
 ];
 
 // Komponen Banner

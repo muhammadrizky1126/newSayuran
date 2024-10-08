@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Link } from '@inertiajs/react';
-import SidebarUser from './SidebarUser';
+import React, { useState } from "react";
+import { Link } from "@inertiajs/react";
+import SidebarUser from "./SidebarUser";
+import Wishlist from "./whitelist";
 
 const NavbarUser = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState(""); // Add search query state
+    const [isWhitelistOpen, setIsWhitelistOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
     const [cartItems, setCartItems] = useState([]);
 
     const handleSearchChange = (e) => {
@@ -12,14 +14,18 @@ const NavbarUser = () => {
     };
 
     const handleAddToCart = async (product) => {
-        console.log('Add to cart button clicked'); // Add log for debugging
-        // Logika menambah ke cart
-        setCartItems(prevItems => [...prevItems, product]);
+        console.log("Add to cart button clicked");
+        setCartItems((prevItems) => [...prevItems, product]);
     };
 
     const toggleSidebar = () => {
-        console.log('Sidebar toggle button clicked'); // Add log for debugging
+        console.log("Sidebar toggle button clicked");
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const toggleWhitelist = () => {
+        console.log("Whitelist toggle button clicked");
+        setIsWhitelistOpen(!isWhitelistOpen);
     };
 
     return (
@@ -28,7 +34,9 @@ const NavbarUser = () => {
                 <nav className="bg-white shadow w-full fixed top-0 left-0 z-50">
                     <div className="w-full bg-teal-500 flex flex-col md:flex-row justify-between items-center p-5">
                         <div className="flex items-center space-x-4">
-                            <span className="text-5xl font-bold text-white text-center md:text-left">Sayur SegarKu</span>
+                            <span className="text-5xl font-bold text-white text-center md:text-left">
+                                Sayur SegarKu
+                            </span>
                             <div className="border-r border-white h-8"></div>
                             <div className="flex flex-col items-center space-y-1">
                                 <div className="flex items-center space-x-2">
@@ -37,9 +45,13 @@ const NavbarUser = () => {
                                         alt="WhatsApp Icon"
                                         className="h-6 w-6"
                                     />
-                                    <span className="text-white font-medium">WhatsApp CS</span>
+                                    <span className="text-white font-medium">
+                                        WhatsApp CS
+                                    </span>
                                 </div>
-                                <span className="text-sm text-white">+62 812-3456-7890</span>
+                                <span className="text-sm text-white">
+                                    +62 812-3456-7890
+                                </span>
                             </div>
                         </div>
 
@@ -62,8 +74,8 @@ const NavbarUser = () => {
                         </div>
 
                         <div className="flex items-center space-x-4 mt-4 md:mt-0">
-                            <Link
-                                href="/wishlist"
+                            <button
+                                onClick={toggleWhitelist}
                                 className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
                             >
                                 <img
@@ -71,7 +83,7 @@ const NavbarUser = () => {
                                     alt="Icon Favorit"
                                     className="h-8 w-8"
                                 />
-                            </Link>
+                            </button>
                             <button
                                 onClick={toggleSidebar}
                                 className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
@@ -83,7 +95,10 @@ const NavbarUser = () => {
                                 />
                             </button>
 
-                            <Link href="/login" className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
+                            <Link
+                                href="/login"
+                                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                            >
                                 <img
                                     src="https://img.icons8.com/?size=100&id=YXG86oegZMMh&format=png&color=FFFFFF"
                                     alt="Icon Login"
@@ -96,7 +111,21 @@ const NavbarUser = () => {
 
                 <div className="h-28"></div>
 
-                <SidebarUser isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} />
+                <SidebarUser
+                    isOpen={isSidebarOpen}
+                    toggleSidebar={toggleSidebar}
+                    cartItems={cartItems}
+                />
+
+                {isWhitelistOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                        <Wishlist
+                            isOpen={isWhitelistOpen}
+                            toggleWhitelist={toggleWhitelist}
+                            wishlistItems={cartItems} // Ganti dengan daftar wishlist yang sebenarnya
+                        />
+                    </div>
+                )}
             </div>
         </>
     );

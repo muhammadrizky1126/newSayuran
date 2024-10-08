@@ -5,6 +5,7 @@ import ProductDetail from '@/Components/User/ProductDetail';
 import NavbarUser from '@/Components/User/NavbarUser';
 import Footer from '@/Components/User/Footer';
 
+
 const Layout = ({ children }) => {
   const location = useLocation();
 
@@ -32,5 +33,6 @@ const App = () => {
     </Router>
   );
 };
+
 
 export default App;

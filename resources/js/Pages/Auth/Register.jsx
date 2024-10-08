@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from '@inertiajs/react';
 import NavbarUser from '@/Components/User/NavbarUser';
-
 
 const Register = () => {
     const { data, setData, post, processing, errors } = useForm({
@@ -97,3 +96,4 @@ const Register = () => {
     );
 };
 
+export default Register;
