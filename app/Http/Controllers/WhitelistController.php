@@ -12,7 +12,7 @@ class WhitelistController extends Controller
     public function index()
     {
         $whitelists = Whitelist::all(); // Ambil semua data dari model Whitelist
-        return Inertia::render('WhitelistPage', [
+        return Inertia::render('Auth/Whitelists', [
             'whitelistData' => $whitelists, // Kirimkan data whitelist ke frontend melalui Inertia
         ]);
     }
