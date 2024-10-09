@@ -1,68 +1,112 @@
-import React, { useState } from 'react';
+import React from "react";
+import { Inertia } from '@inertiajs/inertia';
 
-const WhitelistAccess = () => {
-    const [ipAddress, setIpAddress] = useState('');
-    const [isWhitelisted, setIsWhitelisted] = useState(null);
-    const [processing, setProcessing] = useState(false);
+const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
+    const addNewItem = () => {
+        alert("Fitur menambah item baru belum diimplementasikan.");
+    };
 
-    const handleCheckWhitelist = (e) => {
-        e.preventDefault();
-        setProcessing(true);
+    const handleItemClick = (itemId) => {
+        console.log(`Clicked item with ID: ${itemId}`);
+        alert(`Navigating to wishlist item page for item ID: ${itemId}`);
+    };
 
-        // Kirim alamat IP ke backend untuk memeriksa whitelist
-        fetch('/check-whitelist', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ipAddress }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            setIsWhitelisted(data.isWhitelisted);
-            setProcessing(false);
-        })
-        .catch(() => {
-            setIsWhitelisted(false);
-            setProcessing(false);
-        });
+    const itemStyle = {
+        border: "1px solid #ddd",
+        borderRadius: "10px",
+        padding: "20px",
+        width: "250px",
+        textAlign: "center",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        cursor: "pointer",
+        transition: "all 0.3s ease",
+        backgroundColor: "#ffffff",
+        overflow: "hidden",
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold text-center">Check Whitelist Access</h2>
-                <form onSubmit={handleCheckWhitelist}>
-                    <div>
-                        <label htmlFor="ipAddress" className="block text-sm font-medium text-gray-700">
-                            IP Address
-                        </label>
-                        <input
-                            id="ipAddress"
-                            type="text"
-                            value={ipAddress}
-                            onChange={(e) => setIpAddress(e.target.value)}
-                            className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
-                            required
-                        />
-                    </div>
-                    <div className="mt-6">
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="w-full px-4 py-2 font-bold text-white bg-teal-500 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
+        <div className='p-4' style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
+            <button
+                className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                onClick={toggleWhitelist} // Memanggil fungsi toggleWhitelist
+            >
+                <img
+                    src="https://img.icons8.com/ios-filled/50/000000/close-window.png"
+                    alt="Close Icon"
+                    className="h-8 w-8"
+                />
+            </button>
+
+            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>My Wishlist</h2>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                <h3>FAVORITES <span style={{ color: "green" }}>{wishlistItems.length}</span></h3>
+                <button
+                    onClick={addNewItem}
+                    style={{
+                        padding: "10px 15px",
+                        backgroundColor: "#4CAF50",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "5px",
+                    }}
+                >
+                    + ADD A NEW LIST
+                </button>
+            </div>
+
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                <span>SHARE: </span>
+                {["Link", "Email", "Facebook", "Twitter", "Pinterest"].map((platform) => (
+                    <button key={platform} style={{ margin: "0 5px" }}>
+                        {platform}
+                    </button>
+                ))}
+            </div>
+
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+                {wishlistItems.length > 0 ? (
+                    wishlistItems.map((item) => (
+                        <div
+                            key={item.id}
+                            onClick={() => handleItemClick(item.id)}
+                            style={itemStyle}
                         >
-                            {processing ? 'Checking...' : 'Check Access'}
-                        </button>
-                    </div>
-                </form>
-                {isWhitelisted !== null && (
-                    <div className="mt-4 text-center">
-                        {isWhitelisted ? (
-                            <p className="text-green-600">Your IP is whitelisted! You have access.</p>
-                        ) : (
-                            <p className="text-red-600">Your IP is not whitelisted. Access denied.</p>
-                        )}
+                            <img
+                                src={item.image}
+                                alt={item.name}
+                                style={{
+                                    width: "100%",
+                                    height: "150px",
+                                    objectFit: "cover",
+                                    borderRadius: "10px",
+                                    marginBottom: "10px",
+                                }}
+                            />
+                            <h4>{item.name}</h4>
+                            <p>{item.price}</p>
+                            <button
+                                style={{
+                                    padding: "8px 12px",
+                                    backgroundColor: "#007bff",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "5px",
+                                    marginTop: "10px",
+                                }}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Mencegah event click pada item
+                                    alert(`Viewing details for ${item.name}`);
+                                }}
+                            >
+                                View Details
+                            </button>
+                        </div>
+                    ))
+                ) : (
+                    <div style={{ width: "100%", textAlign: "center" }}>
+                        <h3>FAVORITES</h3>
+                        <p>This list is empty</p>
                     </div>
                 )}
             </div>
@@ -70,4 +114,4 @@ const WhitelistAccess = () => {
     );
 };
 
-export default WhitelistAccess;
+export default Wishlist;
