@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SidebarUser from './SidebarUser'; // Ensure this import path is correct
+import SidebarUser  from './SidebarUser'; // Ensure this import path is correct
 import Banner from './Banner';
 
 // Data produk
@@ -86,7 +86,7 @@ const products = [
       name: 'Organic Lettuce 200 Gr',
       category: 'Organic',
       price: 12900,
-      image: 'https://media.newyorker.com/photos/5b6b08d3a676470b4ea9b91f/4:3/w_1920,h_1440,c_limit/Rosner-Lettuce.jpg',
+      image: 'https://media.newyorker .com/photos/5b6b08d3a676470b4ea9b91f/4:3/w_1920,h_1440,c_limit/Rosner-Lettuce.jpg',
       stock: Math.floor(Math.random() * 20), // random stock
     },
     {
@@ -177,6 +177,7 @@ const ProductList = () => {
     const [showDiscountedOnly, setShowDiscountedOnly] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [whitelistItems, setWhitelistItems] = useState([]);
 
     const itemsPerPage = 16;
 
@@ -224,21 +225,21 @@ const ProductList = () => {
 
     const addToCart = (product) => {
       setCartItems((prevItems) => [...prevItems, product]);
+      setSidebarOpen(true);
     };
+
+    const addToWhitelist = (product) => {
+      setWhitelists((prevItems) => [...prevItems, product]);
+      setSidebarOpen(true);    };
 
     const toggleSidebar = () => {
       setSidebarOpen(!sidebarOpen);
     };
 
-    const addToWhitelist = (product) => {
-      // Implement your whitelist logic here
-      console.log('Added to whitelist:', product);
-    };
-
     return (
       <div>
         <Banner />
-        <SidebarUser isOpen={sidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} />
+        <SidebarUser isOpen={sidebarOpen} toggleSidebar={toggleSidebar} cartItems={cartItems} whitelistItems={whitelistItems} />
         <hr className="my-4 border-gray-300" />
         <div className="container mx-auto p-4">
           <div className="flex flex-col lg:flex-row">
@@ -290,7 +291,7 @@ const ProductList = () => {
                         <h3 className="font-semibold text-md text-gray-800">{product.name}</h3>
                       </Link>
                       {product.discountedPrice ? (
-                        <div className="mt-2">
+ <div className="mt-2">
                           <span className="line-through text-red-500 text-sm">
                             Rp. {product.originalPrice}
                           </span>

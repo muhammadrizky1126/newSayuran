@@ -35,14 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Whitelist routes
+
+});
     Route::get('/whitelist', [WhitelistController::class, 'index'])->name('whitelist.index');
     Route::post('/toggle-favorite', [WhitelistController::class, 'toggleFavorite'])->name('whitelist.toggleFavorite');
-});
 
 // Route untuk halaman Wishlist
 Route::get('/wishlist', function () {
     return Inertia::render('component/user/Wishlist'); // Sesuaikan path dengan benar
-})->middleware(['auth'])->name('wishlist');
+})->name('wishlist');
 
 // Route untuk login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

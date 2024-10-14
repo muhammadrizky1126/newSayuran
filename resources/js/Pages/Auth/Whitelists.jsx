@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Inertia } from '@inertiajs/inertia';
 
 const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
-    const addNewItem = () => {
-        alert("Fitur menambah item baru belum diimplementasikan.");
+    // State untuk menyimpan daftar wishlist dan modal
+    const [lists, setLists] = useState(wishlistItems);
+    const [modal, setModal] = useState({ isOpen: false, message: "", title: "", showShare: false });
+
+    // Fungsi untuk menambah list baru
+    const addNewlist = () => {
+        const newListName = prompt("Masukkan nama list baru:");
+        if (newListName) {
+            const newList = {
+                id: lists.length + 1, // Atur ID secara otomatis
+                name: newListName,
+            };
+            setLists([...lists, newList]);
+        }
     };
 
-    const handleItemClick = (itemId) => {
-        console.log(`Clicked item with ID: ${itemId}`);
-        alert(`Navigating to wishlist item page for item ID: ${itemId}`);
+    // Fungsi untuk membuka modal
+    const openModal = (message, title = "Info", showShare = false) => {
+        setModal({ isOpen: true, message, title, showShare });
+    };
+
+    // Fungsi untuk menutup modal
+    const closeModal = () => {
+        setModal({ isOpen: false, message: "", title: "", showShare: false });
     };
 
     const itemStyle = {
@@ -26,23 +43,12 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
 
     return (
         <div className='p-4' style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-            <button
-                className="text-gray-500 hover:text-gray-700 focus:outline-none"
-                onClick={toggleWhitelist} // Memanggil fungsi toggleWhitelist
-            >
-                <img
-                    src="https://img.icons8.com/ios-filled/50/000000/close-window.png"
-                    alt="Close Icon"
-                    className="h-8 w-8"
-                />
-            </button>
-
             <h2 style={{ textAlign: "center", marginBottom: "20px" }}>My Wishlist</h2>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                <h3>FAVORITES <span style={{ color: "green" }}>{wishlistItems.length}</span></h3>
+                <h3>FAVORITES <span style={{ color: "green" }}>{lists.length}</span></h3>
                 <button
-                    onClick={addNewItem}
+                    onClick={addNewlist}
                     style={{
                         padding: "10px 15px",
                         backgroundColor: "#4CAF50",
@@ -55,36 +61,15 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
                 </button>
             </div>
 
-            <div style={{ textAlign: "center", marginBottom: "20px" }}>
-                <span>SHARE: </span>
-                {["Link", "Email", "Facebook", "Twitter", "Pinterest"].map((platform) => (
-                    <button key={platform} style={{ margin: "0 5px" }}>
-                        {platform}
-                    </button>
-                ))}
-            </div>
-
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
-                {wishlistItems.length > 0 ? (
-                    wishlistItems.map((item) => (
+                {lists.length > 0 ? (
+                    lists.map((item) => (
                         <div
                             key={item.id}
-                            onClick={() => handleItemClick(item.id)}
+                            onClick={() => openModal(`Navigating to wishlist item page for item ID: ${item.id}`, "Item Clicked")}
                             style={itemStyle}
                         >
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                style={{
-                                    width: "100%",
-                                    height: "150px",
-                                    objectFit: "cover",
-                                    borderRadius: "10px",
-                                    marginBottom: "10px",
-                                }}
-                            />
                             <h4>{item.name}</h4>
-                            <p>{item.price}</p>
                             <button
                                 style={{
                                     padding: "8px 12px",
@@ -96,7 +81,7 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
                                 }}
                                 onClick={(e) => {
                                     e.stopPropagation(); // Mencegah event click pada item
-                                    alert(`Viewing details for ${item.name}`);
+                                    openModal(`Viewing details for ${item.name}`, "View Details", true);
                                 }}
                             >
                                 View Details
@@ -110,6 +95,59 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
                     </div>
                 )}
             </div>
+
+            {/* Modal Component */}
+            {modal.isOpen && (
+                <div
+                    style={{
+                        position: "fixed",
+                        top: "0",
+                        left: "0",
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: "white",
+                            padding: "20px",
+                            borderRadius: "10px",
+                            maxWidth: "500px",
+                            textAlign: "center",
+                        }}
+                    >
+                        <p>{modal.message}</p>
+                        {modal.showShare && (
+                            <div style={{ marginTop: "20px" }}>
+                                <span>SHARE: </span>
+                                {["Link", "Email", "Facebook", "Twitter", "Pinterest"].map((platform) => (
+                                    <button key={platform} style={{ margin: "0 5px" }}>
+                                        {platform}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                        <button
+                            onClick={closeModal}
+                            style={{
+                                padding: "10px 20px",
+                                backgroundColor: "#007bff",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                marginTop: "20px",
+                            }}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

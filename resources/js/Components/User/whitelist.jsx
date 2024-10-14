@@ -25,17 +25,6 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems }) => {
 
     return (
         <div className='p-4' style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-            <button
-                className="text-gray-500 hover:text-gray-700 focus:outline-none"
-                onClick={toggleWhitelist}
-            >
-                <img
-                    src="https://img.icons8.com/ios-filled/50/000000/close-window.png"
-                    alt="Close Icon"
-                    className="h-8 w-8"
-                />
-            </button>
-
             <h2 style={{ textAlign: "center", marginBottom: "20px" }}>My Wishlist</h2>
 
             <div
