@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Inertia } from '@inertiajs/inertia';
+import { Inertia } from "@inertiajs/inertia";
 
 const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
     // State untuk menyimpan daftar wishlist dan modal
     const [lists, setLists] = useState(wishlistItems);
-    const [modal, setModal] = useState({ isOpen: false, message: "", title: "", showShare: false });
+    const [modal, setModal] = useState({
+        isOpen: false,
+        message: "",
+        title: "",
+        showShare: false,
+    });
 
     // Fungsi untuk menambah list baru
     const addNewlist = () => {
@@ -42,11 +47,26 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
     };
 
     return (
-        <div className='p-4' style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>My Wishlist</h2>
+        <div
+            className="p-4"
+            style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}
+        >
+            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+                My Wishlist
+            </h2>
 
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                <h3>FAVORITES <span style={{ color: "green" }}>{lists.length}</span></h3>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "20px",
+                }}
+            >
+                <h3>
+                    FAVORITES{" "}
+                    <span style={{ color: "green" }}>{lists.length}</span>
+                </h3>
                 <button
                     onClick={addNewlist}
                     style={{
@@ -61,12 +81,24 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
                 </button>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+            <div
+                style={{
+                    display: "flex",
+                    gap: "20px",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                }}
+            >
                 {lists.length > 0 ? (
                     lists.map((item) => (
                         <div
                             key={item.id}
-                            onClick={() => openModal(`Navigating to wishlist item page for item ID: ${item.id}`, "Item Clicked")}
+                            onClick={() =>
+                                openModal(
+                                    `Navigating to wishlist item page for item ID: ${item.id}`,
+                                    "Item Clicked"
+                                )
+                            }
                             style={itemStyle}
                         >
                             <h4>{item.name}</h4>
@@ -81,7 +113,11 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
                                 }}
                                 onClick={(e) => {
                                     e.stopPropagation(); // Mencegah event click pada item
-                                    openModal(`Viewing details for ${item.name}`, "View Details", true);
+                                    openModal(
+                                        `Viewing details for ${item.name}`,
+                                        "View Details",
+                                        true
+                                    );
                                 }}
                             >
                                 View Details
@@ -124,8 +160,17 @@ const Wishlist = ({ isOpen, toggleWhitelist, wishlistItems = [] }) => {
                         {modal.showShare && (
                             <div style={{ marginTop: "20px" }}>
                                 <span>SHARE: </span>
-                                {["Link", "Email", "Facebook", "Twitter", "Pinterest"].map((platform) => (
-                                    <button key={platform} style={{ margin: "0 5px" }}>
+                                {[
+                                    "Link",
+                                    "Email",
+                                    "Facebook",
+                                    "Twitter",
+                                    "Pinterest",
+                                ].map((platform) => (
+                                    <button
+                                        key={platform}
+                                        style={{ margin: "0 5px" }}
+                                    >
                                         {platform}
                                     </button>
                                 ))}
