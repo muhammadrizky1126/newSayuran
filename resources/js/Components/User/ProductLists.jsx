@@ -285,6 +285,7 @@ const ProductList = () => {
                             <h3 className="font-medium mb-2">Filter</h3>
                             
                             <div className="flex flex-col">
+                                
                                 {["Organic", "Natural", "Hydroponics"].map(
                                     (category) => (
                                         <label
