@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\WhitelistController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ProductController;
 
 // Route untuk halaman beranda
 Route::get('/', function () {
@@ -41,8 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/toggle-favorite', [WhitelistController::class, 'toggleFavorite'])->name('whitelist.toggleFavorite');
 
 // Route untuk halaman Wishlist
-Route::get('/wishlist', function () {
-    return Inertia::render('component/user/Wishlist'); // Sesuaikan path dengan benar
+Route::post('/wishlist', function () {
+    return Inertia::render('component/user/whitelist'); // Sesuaikan path dengan benar
 })->name('wishlist');
 
 // Route untuk login
@@ -52,6 +53,9 @@ Route::post('/login', [LoginController::class, 'login']);
 // Route untuk registrasi
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
 
 // Mengimpor route autentikasi lainnya
 require __DIR__.'/auth.php';
