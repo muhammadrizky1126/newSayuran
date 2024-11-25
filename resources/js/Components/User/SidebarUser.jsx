@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SidebarUser = ({ isOpen, toggleSidebar, cartItems = [], onBuy }) => {
+const SidebarUser = ({ isOpen, toggleSidebar, cartItems = [] }) => {
   const sidebarStyle = {
     position: 'fixed',
     right: 0,
@@ -13,7 +13,7 @@ const SidebarUser = ({ isOpen, toggleSidebar, cartItems = [], onBuy }) => {
     transition: 'transform 0.3s ease',
     zIndex: 1000,
     padding: '16px',
-    overflowY: 'auto',  // Enable vertical scrolling
+    overflowY: 'auto',  // Add this to enable vertical scrolling
   };
 
   return (
@@ -39,17 +39,8 @@ const SidebarUser = ({ isOpen, toggleSidebar, cartItems = [], onBuy }) => {
           <p className="text-gray-500">Your cart is empty.</p>
         )}
       </ul>
-      {cartItems.length > 0 && (
-        <button 
-          onClick={onBuy} 
-          className="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-        >
-          Buy
-        </button>
-      )}
     </div>
   );
 };
 
 export default SidebarUser;
-  
